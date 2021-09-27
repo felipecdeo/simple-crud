@@ -2,7 +2,6 @@ import styled, {css} from "styled-components"
 
 export const Modal = styled.div`
   position: fixed;
-  display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 500px;

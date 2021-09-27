@@ -11,11 +11,10 @@ position: absolute;
   padding: 0 100px;
 `
 
-export const Button = styled.button`
+export const Input = styled.input`
   display: flex;
   justify-content: center;
   align-items: center;
-
   background-color: #7B5E7B;
   border: solid black 2px;
   border-radius: 20px;
@@ -23,5 +22,4 @@ export const Button = styled.button`
   width: 200px;
   height: 40px;
   cursor: pointer;
-
 `
