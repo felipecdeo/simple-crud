@@ -50,7 +50,7 @@ const List = () => {
         }
 
         const index = document.getElementById('name').dataset.index
-        if (index == 'new'){
+        if (index === 'new'){
           createClient(client)
           clearFields()
           updateTable()
@@ -115,7 +115,6 @@ const List = () => {
           editClient(index)
         } else {
           deleteClient(index)
-          updateTable()
         }
       }
     }
