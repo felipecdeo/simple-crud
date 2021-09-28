@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const ListContainer = styled.thead`
-position: absolute;
+  position: absolute;
   border: solid 1px black;
   border-radius: 10px;
   color: white;
@@ -11,7 +11,7 @@ position: absolute;
   padding: 0 100px;
 `
 
-export const Input = styled.input`
+export const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;

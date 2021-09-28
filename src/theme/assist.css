@@ -1,0 +1,21 @@
+tr {
+    display: flex;
+    border: solid 1px black;
+    padding: 10px;
+}
+
+td {
+  width: 150px;
+
+}
+
+td:not(:last-of-type) {
+  margin-right: 100px;
+}
+
+button {
+  background-color: #7B5E7B;
+  border: solid black 2px;
+  border-radius: 20px;
+  cursor: pointer;
+}

@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     background-color: #252B42;
     padding: 5px;
+    overflow: hidden;
   }
 `
 export default GlobalStyle

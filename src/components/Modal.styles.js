@@ -12,13 +12,6 @@ export const Modal = styled.div`
   right: 0;
   border-radius: 15px;
   z-index: 2;
-
-  ${props =>
-    props.isHidden &&
-    css `
-      display: none;
-    `
-  }
 `
 export const ModalHeader = styled.h1`
   color: white;

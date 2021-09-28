@@ -1,12 +1,14 @@
 import React, {useState} from 'react'
 import ReactDOM from 'react-dom';
 import Elements from '../data/listSetup.js'
-import { ListContainer, Input} from './ListContainer.styles'
+import { ListContainer, Button} from './ListContainer.styles'
 import {Modal, ModalHeader, ModalForm, ModalInput, ModalFooter, ModalButton } from './Modal.styles'
+import {tr, td, button} from '../theme/assist.css'
+
 
 
 const List = () => {
-  const [toggle, setToggled] = useState(false)
+
 
     const getLocalStorage = () => JSON.parse(localStorage.getItem('db_client')) ?? []
     const setLocalStorage = (dbClient) => localStorage.setItem("db_client", JSON.stringify(dbClient))
@@ -36,6 +38,10 @@ const List = () => {
       return document.getElementById('form').reportValidity()
     }
 
+    const clearFields = () => {
+      const fields = document.querySelectorAll('ModalInput')
+      fields.forEach(field => field.value = "")
+    }
 
     const saveClient = (client) => {
       const dbClient = readClient()
@@ -48,22 +54,18 @@ const List = () => {
           contact: document.getElementById('contact').value,
           city: document.getElementById('city').value,
         }
-
         const index = document.getElementById('name').dataset.index
         if (index === 'new'){
           createClient(client)
           clearFields()
           updateTable()
+          hiddenShow()
         } else {
           updateClient(index, client)
           updateTable()
+          hiddenShow()
         }
       }
-    }
-
-    const clearFields = () => {
-      const fields = document.querySelectorAll('ModalInput')
-      fields.forEach(field => field.value = "")
     }
 
     const createRow = (client, index) => {
@@ -107,36 +109,64 @@ const List = () => {
       fillFields(client)
     }
 
+    const hiddenShowNew = () => {
+      const modal = document.getElementById('modal');
+      if(modal.style.display === 'none') {
+        modal.style.display='flex'
+        document.getElementById('name').removeAttribute('data-index')
+        document.getElementById('name').setAttribute('data-index', 'new')
+      }else {
+       modal.style.display="none"
+       document.getElementById('name').removeAttribute('data-index')
+
+      }
+    }
+
+    const hiddenShow = () => {
+      const modal = document.getElementById('modal');
+      if(modal.style.display === 'none') {
+        modal.style.display='flex'
+      }else {
+       modal.style.display="none"
+      }
+    }
+
     const editDelete = (event) => {
       if (event.target.type === 'button') {
         const [action, index] = (event.target.id.split('-'))
-
         if (action === 'edit') {
           editClient(index)
+          hiddenShow()
         } else {
           deleteClient(index)
         }
       }
     }
+    if(document.querySelector('#listContainer>tbody') === null){
+    } else {
+      document.querySelector('#listContainer>tbody').addEventListener('click', editDelete)
+    }
 
-    document.querySelector('#listContainer>tbody').addEventListener('click', editDelete)
+    const [toggle, setToggled] = useState(true)
+    const [noToggle, unToggle] = useState(false)
 
   return(
   <>
-    <Input type="checkbox" onChange={(event) => setToggled(event.target.checked)}/>
+    <Button type="checkbox" onClick={() => hiddenShowNew()}/>
     <table id="listContainer" style={{position:"absolute"}}>
       <thead>
-        <tr style={{display:"flex", justifyContent:"space-between", width:"1440px", margin:'30px 100px', }}>
-          <th> Nome </th>
-          <th> E-mail </th>
-          <th> Celular </th>
-          <th> Cidade </th>
+        <tr style={{margin:'0 100px', fontSize:'24px', color:'orange'}}>
+          <td> Nome </td>
+          <td> E-mail </td>
+          <td> Celular </td>
+          <td> Cidade </td>
+          <td> Ações </td>
         </tr>
       </thead>
       <tbody style={{display:"flex", flexDirection:"column", justifyContent:"space-between", width:"1440px", margin:'0 100px'}}>
       </tbody>
     </table>
-    <Modal style={{display:toggle ? "flex" : "none"}}>
+    <Modal id="modal" style={{display: "none"}}>
       <ModalHeader>
         Novo Cliente:
       </ModalHeader>
@@ -148,7 +178,7 @@ const List = () => {
       </ModalForm>
       <ModalFooter>
         <ModalButton onClick={() => saveClient()}> Salvar </ModalButton>
-        <ModalButton onClick=""> Cancelar </ModalButton>
+        <ModalButton onClick={() => hiddenShow()}> Cancelar </ModalButton>
       </ModalFooter>
     </Modal>
   </>
