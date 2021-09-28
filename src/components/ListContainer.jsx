@@ -152,7 +152,7 @@ const List = () => {
 
   return(
   <>
-    <Button type="checkbox" onClick={() => hiddenShowNew()}/>
+    <Button type="checkbox" onClick={() => hiddenShowNew()}> Novo Cliente </Button>
     <table id="listContainer" style={{position:"absolute"}}>
       <thead>
         <tr style={{margin:'0 100px', fontSize:'24px', color:'orange'}}>
