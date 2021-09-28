@@ -1,11 +1,7 @@
-import React, {useState} from 'react'
-import ReactDOM from 'react-dom';
-import Elements from '../data/listSetup.js'
-import { ListContainer, Button} from './ListContainer.styles'
+import React from 'react'
+import {Button} from './ListContainer.styles'
 import {Modal, ModalHeader, ModalForm, ModalInput, ModalFooter, ModalButton } from './Modal.styles'
-import {tr, td, button} from '../theme/assist.css'
-
-
+import {tr, td} from '../theme/assist.css'
 
 const List = () => {
 
@@ -81,7 +77,12 @@ const List = () => {
           <button type="button" id="delete-${index }"> Excluir </button>
         </td>
       `
-      document.querySelector('#listContainer>tbody').appendChild(newRow)
+
+      if(document.querySelector('#listContainer>tbody') === null){
+      }else {
+        document.querySelector('#listContainer>tbody').appendChild(newRow)
+      }
+
     }
 
     const clearTable = () => {
@@ -137,6 +138,7 @@ const List = () => {
         if (action === 'edit') {
           editClient(index)
           hiddenShow()
+          console.log('aa')
         } else {
           deleteClient(index)
         }
@@ -147,8 +149,7 @@ const List = () => {
       document.querySelector('#listContainer>tbody').addEventListener('click', editDelete)
     }
 
-    const [toggle, setToggled] = useState(true)
-    const [noToggle, unToggle] = useState(false)
+    updateTable()
 
   return(
   <>

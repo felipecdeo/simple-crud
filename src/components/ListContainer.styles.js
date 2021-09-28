@@ -1,16 +1,5 @@
 import styled from 'styled-components'
 
-export const ListContainer = styled.thead`
-  position: absolute;
-  border: solid 1px black;
-  border-radius: 10px;
-  color: white;
-  display: flex;
-  font-size: 20px;
-  flex-direction: column;
-  padding: 0 100px;
-`
-
 export const Button = styled.button`
   display: flex;
   justify-content: center;
