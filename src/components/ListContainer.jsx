@@ -56,6 +56,7 @@ const List = () => {
           clearFields()
           updateTable()
           hiddenShow()
+          shot()
         } else {
           updateClient(index, client)
           updateTable()
@@ -144,10 +145,13 @@ const List = () => {
         }
       }
     }
-    if(document.querySelector('#listContainer>tbody') === null){
-    } else {
+
+    
+
+    const shot = () => {
       document.querySelector('#listContainer>tbody').addEventListener('click', editDelete)
     }
+    
 
     updateTable()
 
