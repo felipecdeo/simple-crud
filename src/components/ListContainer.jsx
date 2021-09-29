@@ -23,13 +23,6 @@ const List = () => {
       setLocalStorage(dbClient)
     }
 
-    const deleteClient = (index) => {
-      const dbClient = readClient()
-      dbClient.splice(index, 1)
-      setLocalStorage(dbClient)
-      updateTable()
-    }
-
     const isValidFields = () => {
       return document.getElementById('form').reportValidity()
     }
@@ -55,7 +48,8 @@ const List = () => {
           createClient(client)
           clearFields()
           updateTable()
-          hiddenShow()
+          hiddenShowNew()
+          shot()
         } else {
           updateClient(index, client)
           updateTable()
@@ -82,7 +76,6 @@ const List = () => {
       }else {
         document.querySelector('#listContainer>tbody').appendChild(newRow)
       }
-
     }
 
     const clearTable = () => {
@@ -104,12 +97,7 @@ const List = () => {
       document.getElementById('name').dataset.index = client.index
     }
 
-    const editClient = (index) => {
-      const client = readClient()[index]
-      client.index = index
-      fillFields(client)
-    }
-
+    
     const hiddenShowNew = () => {
       const modal = document.getElementById('modal');
       if(modal.style.display === 'none') {
@@ -117,43 +105,55 @@ const List = () => {
         document.getElementById('name').removeAttribute('data-index')
         document.getElementById('name').setAttribute('data-index', 'new')
       }else {
-       modal.style.display="none"
-       document.getElementById('name').removeAttribute('data-index')
-
+        modal.style.display="none"
+        document.getElementById('name').removeAttribute('data-index')
       }
     }
-
+    
     const hiddenShow = () => {
       const modal = document.getElementById('modal');
       if(modal.style.display === 'none') {
         modal.style.display='flex'
       }else {
-       modal.style.display="none"
+        modal.style.display="none"
       }
     }
 
+    const deleteClient = (index) => {
+      const dbClient = readClient()
+      dbClient.splice(index, 1)
+      setLocalStorage(dbClient)
+      updateTable()
+    }
+
+    const editClient = (index) => {
+      const client = readClient()[index]
+      client.index = index
+      hiddenShow()
+      fillFields(client)
+    }
+    
     const editDelete = (event) => {
       if (event.target.type === 'button') {
-        const [action, index] = (event.target.id.split('-'))
+        const [action, index] = event.target.id.split('-')
         if (action === 'edit') {
           editClient(index)
-          hiddenShow()
-          console.log('aa')
         } else {
           deleteClient(index)
         }
       }
     }
-    if(document.querySelector('#listContainer>tbody') === null){
-    } else {
+
+    const shot = () =>{
       document.querySelector('#listContainer>tbody').addEventListener('click', editDelete)
     }
+
 
     updateTable()
 
   return(
   <>
-    <Button type="checkbox" onClick={() => hiddenShowNew()}> Novo Cliente </Button>
+    <Button onClick={() => hiddenShowNew()}> Novo Cliente </Button>
     <table id="listContainer" style={{position:"absolute"}}>
       <thead>
         <tr style={{margin:'0 100px', fontSize:'24px', color:'orange'}}>
@@ -162,6 +162,7 @@ const List = () => {
           <td> Celular </td>
           <td> Cidade </td>
           <td> Ações </td>
+
         </tr>
       </thead>
       <tbody style={{display:"flex", flexDirection:"column", justifyContent:"space-between", width:"1440px", margin:'0 100px'}}>
@@ -179,7 +180,7 @@ const List = () => {
       </ModalForm>
       <ModalFooter>
         <ModalButton onClick={() => saveClient()}> Salvar </ModalButton>
-        <ModalButton onClick={() => hiddenShow()}> Cancelar </ModalButton>
+        <ModalButton onClick={() => hiddenShowNew()}> Cancelar </ModalButton>
       </ModalFooter>
     </Modal>
   </>
