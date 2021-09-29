@@ -5,7 +5,6 @@ import {tr, td} from '../theme/assist.css'
 
 const List = () => {
 
-
     const getLocalStorage = () => JSON.parse(localStorage.getItem('db_client')) ?? []
     const setLocalStorage = (dbClient) => localStorage.setItem("db_client", JSON.stringify(dbClient))
 
@@ -144,10 +143,9 @@ const List = () => {
       }
     }
 
-    const shot = () =>{
+    const shot = () => {
       document.querySelector('#listContainer>tbody').addEventListener('click', editDelete)
     }
-
 
     updateTable()
 
